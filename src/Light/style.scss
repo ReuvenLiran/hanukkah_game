@@ -1,0 +1,71 @@
+@keyframes light-on {
+  from {
+    background-color: rgba(0, 0, 0, 0.95);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+#light-wrapper {
+  #light-background {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: block;
+    background-color: rgb(10, 4, 73);
+  }
+
+  #light-cover {
+    z-index: 5;
+    display: block;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0.95);
+    opacity: 1;
+    transition: opacity 1s ease-out;
+    // animation: light-on 0.3s both ease-in 4s;
+
+    &.turn-on {
+        opacity: 0;
+        // background-color: rgba(0, 0, 0, 0);
+    }
+  }
+
+  #light {
+    z-index: 4;
+    display: block;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    pointer-events: none;
+    // opacity: 0;
+    background: radial-gradient(
+      circle 300px at 200px 100%,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.5) 80%,
+      rgba(0, 0, 0, 0.95) 100%
+    );
+
+
+    // &.turn-on {
+    //     opacity: 1;
+    //     background-color: rgba(0, 0, 0, 0);
+    // }
+  }
+
+  #light-back {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}

@@ -1,0 +1,97 @@
+<html>
+
+<head>
+  <script src="./candle.js"></script>
+</head>
+<link rel="stylesheet" href="./index.css">
+
+<body>
+  <audio id="matchStrike">
+    <source src="./sounds/match-strike-sound-effect.mp3" type="audio/mpeg" />
+  </audio>
+  <audio  id="fire">
+    <source src="./sounds/match-strike-sound-effect.mp3" type="audio/mpeg" />
+  </audio>
+  <audio  class="audio-wrong">
+    <source src="./sounds/sad-trumpet-sound.mp3" type="audio/mpeg" />
+  </audio>
+  <audio class="audio-wrong">
+    <source src="./sounds/wah-wah-wah-sound-effect.mp3" type="audio/mpeg" />
+  </audio>
+  <div id="panda-talking" class="character"></div>
+  <div id="panda-walking" class="character" id="panda-walking"></div>
+  <div id="parrot-hello">
+    <img class="character" src="./images/parrot-hello/parrot-hello1.svg" />
+    <img class="character hide" src="./images/parrot-hello/parrot-hello2.svg" />
+    <img class="character hide" src="./images/parrot-hello/parrot-hello3.svg" />
+    <img class="character hide" src="./images/parrot-hello/parrot-hello4.svg" />
+    <img class="character hide" src="./images/parrot-hello/parrot-hello5.svg" />
+    <img class="character hide" src="./images/parrot-hello/parrot-hello6.svg" />
+    <img class="character hide" src="./images/parrot-hello/parrot-hello7.svg" />
+    <img class="character hide" src="./images/parrot-hello/parrot-hello8.svg" />
+    <img class="character hide" src="./images/parrot-hello/parrot-hello9.svg" />
+  </div>
+  <img id="character" class="character get-curtain-down" src="./images/parrot.svg" />
+
+  <!-- <div class="speech-bubble">MESSAGE</div>
+  <div class="speech-bubble-triangle"></div> -->
+
+  <div class="speech-bubble">
+    <p class="speech-bubble__content"></p>
+    <div class="speech-bubble-triangle"></div>
+  </div>
+
+  <div class="curtain-hook">
+    <div class="sufganyot-screen"></div>
+    <div class="curtain-bar"></div>
+    <div class="curtain-rope"></div>
+    <div class="curtain-ring"></div>
+  </div>
+  <canvas id="canvas"></canvas>
+
+  <div class="credits-bottom">
+    <h6>Credits</h6>
+    <div>
+      <a href="https://www.freesoundslibrary.com/match-strike-sound-effect/">Match Strike Sound Effect</a>
+      <span>
+        by
+        <a href="https://www.freesoundslibrary.com/author/spanac/">SPANC</a>
+        from
+        <a href="https://www.freesoundslibrary.com/">Free Sounds Library</a></span>
+      <a href="https://creativecommons.org/licenses/by/4.0/legalcode">License: Attribution 4.0 International</a>
+    </div>
+    <div>
+      <a href="https://www.freesoundslibrary.com/wah-wah-wah-sound-effect/">Wah Wah Wah Sound Effect</a>
+      <span>
+        by
+        <a href="https://www.freesoundslibrary.com/author/alexandar/">ALEXANDAR</a>
+        from
+        <a href="https://www.freesoundslibrary.com/">Free Sounds Library</a></span>
+      <a href="https://creativecommons.org/licenses/by/4.0/legalcode">License: Attribution 4.0 International</a>
+    </div>
+    <div>
+      <a href="https://www.freesoundslibrary.com/sad-trumpet-sound/">Sad Trumped Sound Effect</a>
+      <span>
+        by
+        <a href="https://www.freesoundslibrary.com/author/spanac/">SPANC</a>
+        from
+        <a href="https://www.freesoundslibrary.com/">Free Sounds Library</a></span>
+      <a href="https://creativecommons.org/licenses/by/4.0/legalcode">License: Attribution 4.0 International</a>
+    </div>
+    <div>
+      <a href="https://pixabay.com/illustrations/happy-hanukkah-hanukkah-seasonal-3791393/">Menorah Image</a>
+      by
+      <a
+        href="https://pixabay.com/users/angelarose23-6563351/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3791393">Angela
+        Rose</a>
+      from
+      <a
+        href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3791393">Pixabay</a>
+    </div>
+  </div>
+</body>
+
+<script type="text/javascript" src="./index.js">
+</script>
+
+</html>
