@@ -1,3 +1,3 @@
-web: npm i
-web: npm run build
-web: npm run serve $PORT
+web: yarn
+web: yarn build
+web: yarn serve $PORT
