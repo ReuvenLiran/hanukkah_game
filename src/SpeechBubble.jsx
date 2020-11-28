@@ -1,3 +1,5 @@
+import "./speechBubble.scss";
+
 import React from "react";
 import classNames from "classnames";
 import { connect } from "react-redux";

@@ -1,14 +1,36 @@
-import { getImgUrl } from "./utils";
-import { showInstruction, getCurrentInstruction } from "./GameManager";
-import { debounce } from "./utils";
-
-const BROWSER = {
-  SAFARI: false,
-  CHROME: false,
-  FIREFOX: false,
-};
+import { getImgUrl } from "../utils";
+import {store} from "../store";
+import { showInstruction, getCurrentInstruction } from "../GameManager";
+import {
+  BROWSER,
+  MENORAH_PADDING_LEFT,
+  MENORAH_PADDING_TOP,
+  CANDLES,
+} from "./consts";
 
 let gradCtx;
+let imageWidth = 750;
+let imageHeight = 800;
+let ctx;
+let canvas;
+let characterRef;
+let candleRef;
+let mainCandleParticles = [];
+let globalRatio = 1;
+let matchStrikeSoundTimeout;
+let isMatchStriking = null;
+
+const audioMatchStrike = document.getElementById("audio-match-strike");
+const audioFire = document.getElementById("audio-fire");
+audioFire.currentTime = 4;
+
+const candle = new Image();
+candle.src = getImgUrl("candle.png");
+
+const mouse = {
+  x: 0,
+  y: 0,
+};
 
 function checkIsSafari() {
   var ua = navigator.userAgent.toLowerCase();
@@ -24,108 +46,6 @@ function checkIsSafari() {
 }
 
 checkIsSafari();
-
-let globalRatio = 1;
-const MENORAH_PADDING_LEFT = 100;
-const MENORAH_PADDING_TOP = 10;
-
-// canvas.width = canvasWidthRes;
-// canvas.height = canvasHeightRes;
-let imageWidth = 750;
-let imageHeight = 800;
-let ctx;
-let canvas;
-
-const candle = new Image();
-candle.src = getImgUrl("candle.png");
-
-let mainCandleParticles = [];
-const mouse = {
-  x: 0,
-  y: 0,
-};
-
-const audioMatchStrike = document.getElementById("audio-match-strike");
-const audioFire = document.getElementById("audio-fire");
-audioFire.currentTime = 4;
-
-let matchStrikeSoundTimeout;
-let isMatchStriking = null;
-
-const CANDLES = [
-  {
-    // First
-    originalX: 36,
-    originalY: 58,
-    offsetX: 42,
-    offsetY: 55,
-    particles: [],
-  },
-  {
-    // Second
-    originalX: 107,
-    originalY: 58,
-    offsetX: 124,
-    offsetY: 56,
-    particles: [],
-  },
-  {
-    // Third
-    originalX: 179,
-    originalY: 55,
-    offsetX: 206,
-    offsetY: 53,
-    particles: [],
-  },
-  {
-    // Fourth
-    originalX: 250,
-    originalY: 53,
-    offsetX: 287,
-    offsetY: 51,
-    particles: [],
-  },
-  {
-    // Fifth
-    originalX: 327,
-    originalY: 10,
-    offsetX: 375,
-    offsetY: 10,
-    particles: [],
-  },
-  {
-    // Sixth
-    originalX: 405,
-    originalY: 52,
-    offsetX: 464,
-    offsetY: 52,
-    particles: [],
-  },
-  {
-    // Seventh
-    originalX: 475,
-    originalY: 54,
-    offsetX: 544,
-    offsetY: 54,
-    particles: [],
-  },
-  {
-    // Eighth
-    originalX: 548,
-    originalY: 54,
-    offsetX: 627,
-    offsetY: 54,
-    particles: [],
-  },
-  {
-    // Ninth
-    originalX: 618,
-    originalY: 55,
-    offsetX: 709,
-    offsetY: 53,
-    particles: [],
-  },
-];
 
 function playWrongSound() {
   let randomIndex = Math.round(Math.random()) * 1;
@@ -199,12 +119,29 @@ function particle(x = 0, y = 0) {
   this.b = Math.round(Math.random() * 255);
 }
 
-var m = { x: 400, y: 300 };
+function drawLightForWholeMenorah(numOfLightedCandles) {
+  // numOfLightedCandles = 1;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  const {leftPosition, topPosition} = store.getState().canvas;
 
-function drawLight(x, y) {
+  ctx.globalCompositeOperation = "source-over";
+  const radius = imageHeight / 2;
+  const x = leftPosition + (imageWidth/2); //canvas.width - (imageWidth - (radius / 2));
+  const y = topPosition + (imageHeight/2) - (100 * globalRatio); //canvas.height - imageHeight) + imageHeight / 2;
+
+  var g = ctx.createRadialGradient(x, y, 0, x, y, radius);
+  g.addColorStop(1, "rgba(255,206,96,0)");
+  // g.addColorStop(0, `rgba(255,206,96,1)`);
+
+  g.addColorStop(0, `rgba(255,206,96,${numOfLightedCandles * 0.02})`);
+  ctx.fillStyle = g;
+}
+
+function drawLight(x, y, radius) {
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.globalCompositeOperation = "source-over";
 
-  var g = ctx.createRadialGradient(x, y, 0, x, y, r);
+  var g = ctx.createRadialGradient(x, y, 0, x, y, radius);
   g.addColorStop(1, "rgba(255,206,96,0)");
   g.addColorStop(0, "rgba(255,206,96,1)");
   ctx.fillStyle = g;
@@ -290,7 +227,6 @@ export function onClickCandle(e) {
       rY - CLICK_AREA_SIZE < y
     ) {
       if (index === candleIndex) {
-        console.log("LIGHT CANDLE")
         audioMatchStrike.pause();
         audioMatchStrike.play();
         isMatchStriking = true;
@@ -347,6 +283,7 @@ export function draw() {
   flicker();
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   ctx.globalCompositeOperation = "source-over";
 
   var g = ctx.createRadialGradient(
@@ -363,38 +300,36 @@ export function draw() {
 
   ctx.save();
 
+
   CANDLES.forEach((candle) => {
     if (candle.particles.length > 0) {
       const { x: rX, y: rY } = getResponsiveXY(candle.offsetX, candle.offsetY);
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      drawLight(rX, rY);
+      drawLight(rX, rY, 100);
     }
   });
-
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
   const numOfLightedCandles = CANDLES.filter(
     (candle) => candle.particles.length > 0
   ).length;
-  ctx.fillStyle = `rgba(0,0,0,${0.8 - (numOfLightedCandles * 0.03)})`;
+
+  drawLightForWholeMenorah(numOfLightedCandles);
+
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // ctx.fillStyle = `rgba(0,0,0,${0.8 - numOfLightedCandles * 0.03})`;
+  
+  ctx.fillStyle = `rgba(0,0,0,0.8)`;
+
 
   ctx.globalCompositeOperation = "xor";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.globalCompositeOperation = "source-over";
 
-  ctx.save();
-
-  const pos = { x: mouse.x, y: mouse.y };
-  const FIX_POSITION_X = globalRatio * 16;
-  const FIX_POSITION_Y = globalRatio * 125;
-  ctx.translate(pos.x + FIX_POSITION_X, pos.y + FIX_POSITION_Y);
-  ctx.rotate((-7 * Math.PI) / 180);
-  const imgHeight = globalRatio * (550 / 2.1); // / 2.7; //80;
-  const imgWidth = globalRatio * (55 / 2.1); // / 4; //15;
-
-  ctx.drawImage(candle, -imgWidth / 2, -imgHeight / 2, imgWidth, imgHeight);
-  ctx.restore();
+  if (candleRef) { 
+     candleRef.style.transform = `translate(${mouse.x + 1}px, ${mouse.y}px) rotateZ(-7deg)`;
+  }
 
   drawFire(mainCandleParticles, mouse.x, mouse.y);
 
@@ -404,13 +339,6 @@ export function draw() {
       drawFire(candle.particles, rX, rY);
     }
   });
-
-  // const h = canvas.height;
-  // const w = canvas.width;
-  // ctx.globalCompositeOperation = 'destination-in';
-  // ctx.drawImage(gradCtx.canvas, 300 - w / 2, 300 - h / 2);
-  // ctx.globalCompositeOperation = 'lighten';
-  // ctx.fillRect(0, 0, w, h);
 }
 
 export function onResizeCanvas(_imageWidth, _imageHeight, _globalRatio) {
@@ -430,19 +358,26 @@ function updateGradient() {
   const w = canvas.width;
   const h = canvas.height;
   var grad = gradCtx.createRadialGradient(w / 2, h / 2, w / 8, w / 2, h / 2, 0);
-  grad.addColorStop(0, 'transparent');
-  grad.addColorStop(1, 'white');
+  grad.addColorStop(0, "transparent");
+  grad.addColorStop(1, "white");
   gradCtx.fillStyle = grad;
   gradCtx.filter = "blur(5px)";
   gradCtx.fillRect(0, 0, w, h);
 }
 
-export function drawCanvas(_canvas) {
+export function drawCanvas(_canvas, _characterRef, _candleRef) {
   canvas = _canvas;
+  characterRef = _characterRef;
+  candleRef = _candleRef;
+
   ctx = canvas.getContext("2d");
-  gradCtx = canvas.cloneNode().getContext('2d');
-  draw(canvas);
+  gradCtx = canvas.cloneNode().getContext("2d");
+  draw();
   setInterval(draw, 33);
   setInterval(playFireSound, 8000);
   playFireSound();
 }
+
+// function drawPanda () {
+//   const pandaCanvas =
+// }

@@ -67,73 +67,6 @@
   }
 }
 
-.speech-bubble-wrapper {
-  position: absolute;
-  z-index: 7;
-  bottom: calc(100vh - 250px);
-  left: 200px;
-}
-
-.speech-bubble {
-  font-family: fantasy;
-  font-weight: normal;
-  background-color: white;
-  color: black;
-  border-radius: 0.4em;
-
-  width: 360px;
-  padding: 30px 15px;
-  margin: 1em 0;
-  text-align: center;
-  /* font-size: 200%; */
-  font-size: 150%;
-
-  text-shadow: 0 -0.05em 0.1em rgba(0, 0, 0, 0.3);
-  transform: scale(0.5) translateY(200px) rotate(55deg);
-  opacity: 0;
-  transition: transform 0.3s ease-in, opacity 0.3s ease-in;
-}
-
-.speech-bubble.show {
-  transform: scale(1) translateY(0px) rotate(0deg);
-  opacity: 1;
-}
-.speech-bubble-triangle {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50px;
-  width: 0;
-  height: 0;
-  border: 42px solid transparent;
-  /* border-top-color: #00cee0; */
-  border-top-color: white;
-  border-bottom: 0;
-  border-left: 0;
-  margin-left: -21px;
-  margin-bottom: -42px;
-}
-
-/* .speech-bubble:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50px;
-  width: 0;
-  height: 0;
-  border: 42px solid transparent;
-  border-top-color: white;
-  border-bottom: 0;
-  border-left: 0;
-  margin-left: -21px;
-  margin-bottom: -42px;
-}  */
-
-.speech-bubble__content {
-  padding: 0;
-  margin: 0;
-}
-
 body {
   padding: 0;
   margin: 0;
@@ -148,6 +81,16 @@ body {
     transform: translateX(0);
   }
 }
+
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  cursor: none;
+}
+
 #canvas {
   position: absolute;
   top: 0;
@@ -157,12 +100,10 @@ body {
   /* transform: translateX(100%); */
   width: 100vw;
   height: 100vh;
-  background-color: rgb(10, 4, 73);
-  /* background-image: url(../public/images/menorah.png); */
+  /* background-color: rgb(10, 4, 73);
   background-size: 750px 700px;
   background-repeat: no-repeat;
-  /* background-position: bottom right; */
-  background-position: right bottom;
+  background-position: right bottom; */
   cursor: none;
 }
 
@@ -190,13 +131,12 @@ body {
   display: none;
 }
 
-#character {
+/* #character {
   position: absolute;
-  /* top: 180px; */
   left: 0;
   height: 300px;
   display: none;
-}
+} */
 
 #parrot-hello {
   display: none;
@@ -205,8 +145,15 @@ body {
   left: 0;
 }
 
-.character {
-  height: 300px;
+#character {
+  /* heighstyle={{
+      backgroundSize,
+      backgroundPosition,
+      // left: isShown ? 0 : "100vw",
+      backgroundImage: `url(${getImgUrl("menorah.png")})`,
+    }}t: 300px; */
+  width: 279.89px;
+  height: 475.99px;
   z-index: 3;
 }
 
@@ -318,7 +265,7 @@ body {
   display: none;
 }
 
-#panda-talking {
+.panda-talking {
   /* background-color: red; */
   position: absolute;
   /* top: 130px; */
@@ -332,7 +279,7 @@ body {
   background-position: 0px, 0px;
 }
 
-#panda-walking {
+.panda-walking {
   /* background-color: red; */
   position: absolute;
   /* top: 130px; */

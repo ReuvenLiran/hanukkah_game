@@ -49,7 +49,7 @@ export function animateSpeak(sentence, onDone, time = 0) {
     } else {
       imgIndex -= 1;
     }
-  }, 60);
+  }, 55);
 
   setTimeout(() => {
     setSpeakingFirstFrame();
@@ -77,7 +77,7 @@ export function animateWalking(time, onDone) {
     } else {
       imgIndex = 0;
     }
-  }, 30);
+  }, 33);
 
   setTimeout(() => {
     setSpeakingFirstFrame();
