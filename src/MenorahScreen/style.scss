@@ -32,6 +32,8 @@
 
 #canvas {
   cursor: none;
+  // transform: scale(0.3333333);
+  // transform-origin: top left;
 }
 
 .credits-bottom {
@@ -55,7 +57,7 @@
   // width: 375px;
   // width: 475.99px; //279.89px;
   // height: 475.99px;
-  height: 480px;
+  height: 450px;
   // & > div {
   //   width: 321px;
   // }
@@ -95,7 +97,7 @@
 }
 
 .panda-walking-wrapper {
-  transition: transform 5s;
+  transition: transform 6s;
   .panda-walking {
     /* background-color: red; */
     // position: absolute;
@@ -286,8 +288,8 @@ body {
 .focus-moon {
   transform-origin: top left;
   transform: scale(3);
-  animation: focus-on-moon 0s both;
-  // animation: focus-on-moon 16s 28s both;
+  // animation: focus-on-moon 0s both;
+  animation: focus-on-moon 16s 28s both;
 }
 
 @keyframes focus-on-moon {
@@ -312,7 +314,6 @@ body {
 #canvas-wrapper {
   height: 100vh;
   background-color: #05f61f;
-
 }
 
 #canvas-background {

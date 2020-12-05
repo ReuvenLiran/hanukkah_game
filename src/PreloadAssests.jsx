@@ -17,8 +17,6 @@ const Img = (props) => {
 };
 
 function preloadImages(loadAssest) {
-    console.log("QQQ preloadImages");
-
   [
     "night-sky.jpg",
     "panda.svg",

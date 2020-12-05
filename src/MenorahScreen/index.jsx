@@ -42,7 +42,9 @@ function App(props) {
   }, []);
 
   return (
-    <div className={classNames("menorah-screen", "focus-moon")}
+    <div className={classNames("menorah-screen", {
+      "focus-moon": isRendered,
+    })}
       style={{
         opacity: isRendered ? 1 : 0,
       }}

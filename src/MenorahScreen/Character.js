@@ -10,7 +10,7 @@ const LAST_FRAME = 38;
 let i = 0;
 const OFFSET_Y = 1;
 
-const PANDA_IMGAE = "panda_new.svg";
+const PANDA_IMGAE = "panda.svg";
 // const POSItION_X_FACTOR = -392.5;
 // const POSItION_X_FACTOR = -391.8;
 const POSItION_X_FACTOR = -392.7;
@@ -128,7 +128,7 @@ function Character(props) {
   const b = 392 / 400;
   const P = (1 / 38) * 0.09;
   const PP = ((e / 38) - P) * 100
-  console.log("PPPP",(e / 38),  P, PP)
+
   const backgroundPositionX = ((frameNumber / LAST_FRAME) - padding) * 100;
   const style = {
     // left: 30 * globalRatio,
@@ -147,7 +147,7 @@ function Character(props) {
   // console.log("SSSSS", frameNumber, style.backgroundPosition)
   // alert(globalRatio)
   // const ratio = 321 / 476;
-  console.log("QQQQ", transitionTime)
+
   return (
     <div
       id="character-wrapper"

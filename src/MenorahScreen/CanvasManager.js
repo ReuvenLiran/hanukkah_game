@@ -19,6 +19,7 @@ let mainCandleParticles = [];
 let globalRatio = 1;
 let matchStrikeSoundTimeout;
 let isMatchStriking = null;
+let moonRect
 
 const candle = new Image();
 candle.src = getImgUrl("candle.png");
@@ -143,26 +144,76 @@ function drawLight(x, y, radius) {
   ctx.fillStyle = g;
 }
 
+
+
 function drawMoonLight() {
-  const { wasFocusDone } = store.getState().general;
-  let x = (150/3) + 150;
-  let y = (150/3) + 50;
-  if (wasFocusDone) {
-    x = (150/2) + 140;
-    y = (150/2) + 50;
+  if (moonRect) {
+    const { wasFocusDone } = store.getState().general;
+    console.log(globalRatio)
+    const { top, left, width } = moonRect; 
+    console.log("ZZZZZZZ", top, left, width)
+    let x = (left + (width/2)) * 1 //185;
+    let radius = width //130;
+    let y = (top + (width/2)) * 1//130; //(150/3) + 50;
+
+    // x = 370 // * globalRatio
+    // radius = 140 * globalRatio
+    // y = 115 * globalRatio
+    x = x - 35 * globalRatio;
+    y = y - 30 * globalRatio;
+    radius = radius - 70 * globalRatio
+
+    // if (!wasFocusDone) {
+    //   x = x / 3.15;
+    //   y = y / 3.15;
+    //   radius = radius / 5;
+    // }
+
+
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = "source-over";
+
+    var g = ctx.createRadialGradient(x, y, 0, x, y, radius);
+    g.addColorStop(1, "rgba(255,255,255,0)");
+    g.addColorStop(0.6, "rgba(255,255,255,0.4)");
+    g.addColorStop(0, "rgba(255,255,255,0.8)");
+    ctx.fillStyle = g;
   }
-
-  x = x * globalRatio;
-  y = y * globalRatio;
-  const radius = 150 * globalRatio;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.globalCompositeOperation = "source-over";
-
-  var g = ctx.createRadialGradient(x, y, 0, x, y, radius);
-  g.addColorStop(1, "rgba(255,255,255,0)");
-  g.addColorStop(0, "rgba(255,255,255,1)");
-  ctx.fillStyle = g;
 }
+// function drawMoonLight() {
+//   const moonDom = document.querySelector(".moon");
+//   if (moonDom) {
+
+//     const { top, left, width, height } = moonDom.getBoundingClientRect(); 
+//     const { wasFocusDone } = store.getState().general;
+//     let x = (left + (width/2)) * 1 //185;
+//     let radius = width //130;
+//     let y = (top + (width/2)) * 1//130; //(150/3) + 50;
+//     // if (wasFocusDone) {
+//     //   // radius = 150;
+//     //   x = 200;
+//     //   y = 130; //(150/2) + 50;
+//     // }
+
+//     x = x - 35 * globalRatio;
+//     y = y -  * globalRatio;
+//     radius = radius - 70 * globalRatio
+//     // x = x * globalRatio;
+//     // y = y * globalRatio;
+//     // radius = radius * globalRatio;
+
+//     console.log("AAAAA", x , y, radius, globalRatio);
+//     // const radius = 150 * globalRatio;
+//     ctx.fillRect(0, 0, canvas.width, canvas.height);
+//     ctx.globalCompositeOperation = "source-over";
+
+//     var g = ctx.createRadialGradient(x, y, 0, x, y, radius);
+//     g.addColorStop(1, "rgba(255,255,255,0)");
+//     g.addColorStop(0.6, "rgba(255,255,255,0.4)");
+//     g.addColorStop(0, "rgba(255,255,255,0.8)");
+//     ctx.fillStyle = g;
+//   }
+// }
 
 function drawFire(particles2, initialX, initialY) {
   ctx.globalCompositeOperation = "lighter";
@@ -414,7 +465,11 @@ export function onResizeCanvas(_imageWidth, _imageHeight, _globalRatio) {
     candle.offsetX = candle.originalX * globalRatio;
     candle.offsetY = candle.originalY * globalRatio;
   });
-  console.log("CCCCC", CANDLES[0])
+
+  const moonDom = document.querySelector(".moon");
+  if (moonDom) {
+    moonRect = moonDom.getBoundingClientRect();
+  }
 }
 
 function updateGradient() {

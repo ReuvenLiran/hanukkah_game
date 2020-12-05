@@ -11,9 +11,9 @@ export const CANDLES = [
   {
     // Character candle
     originalX: 280,
-    originalY: 614,
+    originalY: 645,
     offsetX: 280,
-    offsetY: 614,
+    offsetY: 645,
     particles: [],
   },
   {

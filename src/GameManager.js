@@ -53,8 +53,8 @@ const animateSpeakWrapper = (sentences, withCandle) => {
 const INSTRUCTIONS = [
   {
     type: TYPES.ANIMATE,
-    duration: 1000,
-    // duration: 30000,
+    // duration: 5000,
+    duration: 30000,
     animate: () => {
       setTimeout(() => {
         const { resizeRatio, globalRatio } = store.getState().canvas;
@@ -97,7 +97,7 @@ const INSTRUCTIONS = [
       // Hey There djfkljf sjfksf sjfks sjfks sjfks jfskjfs sjdks sdjksd sjdksd dsjdks dskjdks djskd skdnks csk cks ks dks kds kd kd kds k kd k k k k k k k k k k k k k `, "Can you light my candle?"]);
 
       animateWalking(5000, null, 'walk-start', 
-        350 * 1.5 + 100
+        350 * 1.5  +100
       );
       // const video = document.querySelector("#video-curtain-opening");
       // video.width = window.innerWidth;
