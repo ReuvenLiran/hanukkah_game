@@ -1,61 +1,70 @@
-#theater {
-  $animation-time: 4s;
-  $animation-delay: 2s;
+// #theater {
+//   $animation-time: 4s;
+//   $animation-delay: 2s;
 
+//   position: absolute;
+//   z-index: 7;
+//   border: inset #280135 10px;
+//   height: 100vh;
+//   width: 100vw;
+//   font-size: 30px;
+//   overflow: hidden;
+//   background: tran;
+//   // background: black;
+//   text-shadow: 0 0 2px yellow, 0 0 4px black, 0 0 6px white;
+
+//   #curtain-left,
+//   #curtain-right {
+//     content: "";
+//     position: absolute;
+//     z-index: 2;
+//     top: -30px;
+//     bottom: -30px;
+//     width: 61%;
+//     transition: all $animation-time ease-out $animation-delay;
+//     transform: rotate(0deg);
+//     background-color: #280135;
+//     background-image: linear-gradient(
+//       90deg,
+//       transparent 10%,
+//       rgba(255, 255, 255, 0.25) 50%,
+//       transparent 65%
+//     );
+//     background-repeat: repeat;
+//     box-shadow: 0 0 10px #555, inset 0 -60px 60px -30px rgba(255, 255, 255, 0.5),
+//       inset 0 90px 60px -30px rgba(0, 0, 0, 0.5);
+//     background-size: 80px;
+//   }
+
+//   #curtain-left {
+//     left: -10%;
+//   }
+  
+//   #curtain-right {
+//     right: -10%;
+//   }
+
+//   &.open {
+//     #curtain-right,
+//     #curtain-left {
+//       width: 0;
+//       background-size: 1px;
+//       transition: all $animation-time ease $animation-delay;
+//       transform: rotate(15deg);
+//     }
+    
+//     #curtain-right {
+//       // transition: all 4s ease $animation-delay;
+//       transform: rotate(-15deg);
+//     }
+//   }
+// }
+
+
+#theater {
   position: absolute;
   z-index: 7;
-  border: inset #280135 10px;
+  // border: inset #280135 10px;
   height: 100vh;
   width: 100vw;
-  font-size: 30px;
-  overflow: hidden;
-  background: transparent;
-  // background: black;
-  text-shadow: 0 0 2px yellow, 0 0 4px black, 0 0 6px white;
-
-  #curtain-left,
-  #curtain-right {
-    content: "";
-    position: absolute;
-    z-index: 2;
-    top: -30px;
-    bottom: -30px;
-    width: 61%;
-    transition: all $animation-time ease-out $animation-delay;
-    transform: rotate(0deg);
-    background-color: #280135;
-    background-image: linear-gradient(
-      90deg,
-      transparent 10%,
-      rgba(255, 255, 255, 0.25) 50%,
-      transparent 65%
-    );
-    background-repeat: repeat;
-    box-shadow: 0 0 10px #555, inset 0 -60px 60px -30px rgba(255, 255, 255, 0.5),
-      inset 0 90px 60px -30px rgba(0, 0, 0, 0.5);
-    background-size: 80px;
-  }
-
-  #curtain-left {
-    left: -10%;
-  }
-  
-  #curtain-right {
-    right: -10%;
-  }
-
-  &.open {
-    #curtain-right,
-    #curtain-left {
-      width: 0;
-      background-size: 1px;
-      transition: all $animation-time ease $animation-delay;
-      transform: rotate(15deg);
-    }
-    
-    #curtain-right {
-      // transition: all 4s ease $animation-delay;
-      transform: rotate(-15deg);
-    }
-  }
 }

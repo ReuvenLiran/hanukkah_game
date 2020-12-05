@@ -1,3 +1,26 @@
+/* z-indexes */
+#menorah {
+  z-index: 1;
+}
+
+#character-light-back {
+  z-index: 2;
+  width: 475.99px;
+  height: 475.99px;
+}
+
+#character-wrapper {
+  z-index: 3;
+}
+
+#main-candle {
+  z-index: 4;
+}
+
+#canvas {
+  z-index: 5;
+}
+
 .layer {
   position: absolute;
   top: 0;
@@ -7,9 +30,7 @@
   cursor: none;
 }
 
-
 #canvas {
-  z-index: 2;
   cursor: none;
 }
 
@@ -27,10 +48,22 @@
   display: none;
 }
 
-#character {
-  width: 279.89px;
-  height: 475.99px;
-  z-index: 2;
+#character-wrapper {
+  position: absolute;
+  width: 341px;
+  // width: 321px;
+  // width: 375px;
+  // width: 475.99px; //279.89px;
+  // height: 475.99px;
+  height: 480px;
+  // & > div {
+  //   width: 321px;
+  // }
+
+  #character {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .hide {
@@ -39,11 +72,12 @@
 
 .panda-talking {
   /* background-color: red; */
-  position: absolute;
+  // position: absolute;
   /* top: 130px; */
   /* left: 10px; */
   height: 476px;
-  width: 279.9px;
+  width: 321px;
+  // width: 279.9px;
   border: none 0px transparent;
   background-repeat: no-repeat;
   background-size: cover;
@@ -51,19 +85,35 @@
   background-position: 0px, 0px;
 }
 
-.panda-walking {
-  /* background-color: red; */
-  position: absolute;
-  /* top: 130px; */
-  /* left: 10px; */
-  height: 476px;
-  width: 279.9px;
-  border: none 0px transparent;
-  background-repeat: no-repeat;
-  background-size: cover;
-  /* background-image: url(../public/images/panda_talking.svg); */
-  background-position: 0px, 0px;
-  /* animation: panda-walking 15s both; */
+@keyframes walk-start {
+  from {
+    transform: translateX(-200%);
+  }
+  to {
+    transform: translateX(10vmin);
+  }
+}
+
+.panda-walking-wrapper {
+  transition: transform 5s;
+  .panda-walking {
+    /* background-color: red; */
+    // position: absolute;
+    /* top: 130px; */
+    /* left: 10px; */
+    // height: 476px;
+    // width: 279.9px;
+    // border: none 0px transparent;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    // /* background-image: url(../public/images/panda_talking.svg); */
+    // background-position: 0px, 0px;
+    // /* animation: panda-walking 15s both; */
+
+    &.walk-start {
+      animation: walk-start 8s linear both;
+    }
+  }
 }
 
 /* body {
@@ -232,3 +282,49 @@ body {
   z-index: 2;
   background-color: rgba(255, 255, 255, 0.2);
 }
+
+.focus-moon {
+  transform-origin: top left;
+  transform: scale(3);
+  animation: focus-on-moon 0s both;
+  // animation: focus-on-moon 16s 28s both;
+}
+
+@keyframes focus-on-moon {
+  0% {
+    transform-origin: top left;
+    transform: scale(3); // translateY(0px);
+  }
+  30% {
+    transform-origin: bottom left;
+    transform: scale(3); // translateY(0px);
+  }
+  65% {
+    transform-origin: bottom left;
+    transform: scale(3); // translateY(0px);
+  }
+  100% {
+    transform-origin: bottom left;
+    transform: unset;
+  }
+}
+
+#canvas-wrapper {
+  height: 100vh;
+  background-color: #05f61f;
+
+}
+
+#canvas-background {
+    width: 100vw;
+    height: 90vh;;
+    display: flex;
+    background-color: #0c1445;
+    // background-image: -webkit-linear-gradient(top, #0c1445 90%, #05f61f 50%);
+    // background-image: linear-gradient(top, #0c1445 90%, #05f61f 50%);
+    // background-image: -o-linear-gradient(top, #0c1445 90%, #05f61f 50%);
+    // background-image: -moz-linear-gradient(top, #0c1445 90%, #05f61f 50%);
+    // background-image: -ms-linear-gradient(top, #0c1445 90%, #05f61f 50%); 
+
+}
+  

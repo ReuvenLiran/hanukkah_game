@@ -9,6 +9,14 @@ export const MENORAH_PADDING_TOP = 10;
 
 export const CANDLES = [
   {
+    // Character candle
+    originalX: 280,
+    originalY: 614,
+    offsetX: 280,
+    offsetY: 614,
+    particles: [],
+  },
+  {
     // First
     originalX: 36,
     originalY: 58,

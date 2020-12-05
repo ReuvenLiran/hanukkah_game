@@ -12,10 +12,9 @@ function SpeechBubble(props) {
       className="speech-bubble-wrapper"
       style={{
         transform: `scale(${globalRatio})`,
-        bottom: (476 - 70) * 0.65 * globalRatio,
-        left: (279.9 + 10) * 0.9 * globalRatio,
-        // bottom: `calc(100vh - ${300 * globalRatio}px)`,
-        // left: `${160 * globalRatio}px`,
+        transformOrigin: "bottom left",
+        bottom: (300) * globalRatio,
+        left: (330) * globalRatio,
       }}
     >
       <div className={classNames("speech-bubble", { show })}>

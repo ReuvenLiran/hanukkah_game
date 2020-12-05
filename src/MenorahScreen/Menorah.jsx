@@ -8,7 +8,6 @@ export default function Menorah(props) {
       id="menorah"
       className="layer"
       style={{
-        zIndex: 0,
         backgroundSize,
         backgroundRepeat: "no-repeat",
         backgroundPosition,

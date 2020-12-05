@@ -1,7 +1,14 @@
 import React from "react";
 import { store } from "./store.js";
 import { canvas, bubble, general } from "./reducers";
-import { animateSpeak, animateWalking } from "./AnimationManager";
+import {
+  animateSpeakWithCandle,
+  startShow,
+  updateLocation,
+  animateSpeak,
+  animateUseCandle,
+  animateWalking,
+} from "./AnimationManager";
 
 const { SHOW_BUBBLE, HIDE_BUBBLE, CHANGE_CONTENT } = bubble;
 
@@ -13,13 +20,17 @@ const TYPES = {
 
 const animateCandle = (candle, isError) => {
   if (isError) {
-    animateSpeakWrapper(["Oops!", "Wrong Candle!"]);
+    animateSpeakWithCandleWrapper(["Oops!", "Wrong Candle!"]);
   } else {
-    animateSpeakWrapper([`Light the ${candle} candle!`]);
+    animateSpeakWithCandleWrapper([`Light the ${candle} candle!`]);
   }
 };
 
-const animateSpeakWrapper = (sentences) => {
+const animateSpeakWithCandleWrapper = (sentences) => {
+  animateSpeakWrapper(sentences, true);
+};
+
+const animateSpeakWrapper = (sentences, withCandle) => {
   let j = 0;
   const callbacks = [];
 
@@ -27,7 +38,11 @@ const animateSpeakWrapper = (sentences) => {
     const lastCallback = callbacks[j - 1];
 
     callbacks.push(() => {
-      animateSpeak(sentence, lastCallback, 500);
+      // if (withCandle) {
+      //   animateSpeakWithCandle(sentence, lastCallback, 500);
+      // } else {
+      animateSpeak(withCandle, sentence, lastCallback, 500);
+      // }
     });
     j += 1;
   });
@@ -38,24 +53,81 @@ const animateSpeakWrapper = (sentences) => {
 const INSTRUCTIONS = [
   {
     type: TYPES.ANIMATE,
-    duration: 6000,
+    duration: 1000,
+    // duration: 30000,
     animate: () => {
-      store.dispatch(general.openTheaterCurtain(true));
+      setTimeout(() => {
+        const { resizeRatio, globalRatio } = store.getState().canvas;
+        // updateLocation(0 - (350 * 1.5 * globalRatio), 0);
+        updateLocation(0 - (350 * 1.5), 0);
+
+        document.querySelector("#audio-cinematic-intro").play();
+       }, 100);      
+      store.dispatch(general.startShow(true));
+    },
+  },
+  // {
+  //   type: TYPES.ANIMATE,
+  //   duration: 1500,
+  //   animate: () => {
+  //     store.dispatch(general.turnOnLight(true));
+  //   },
+  // },
+  // {
+  //   type: TYPES.ANIMATE,
+  //   duration: 20000,
+  //   animate: () => {
+  //     store.dispatch(canvas.showCanvas(true));
+  //     // animateWalking(5000)
+  //   },
+  // },
+  {
+    type: TYPES.ANIMATE,
+    duration: 7000,
+    // duration: 100000,
+    animate: () => {
+
+      store.dispatch(general.setFocusDone(true));
+      // animateSpeakWithCandleWrapper([`
+      // There djfkljf sjfksf sjfks sjfks sjfks jfskjfs sjdks sdjksd sjdksd dsjdks dskjdks djskd skdnks csk cks ks dks kds kd kd kds k kd k k k k k k k k k k k k k 
+      // There djfkljf sjfksf sjfks sjfks sjfks jfskjfs sjdks sdjksd sjdksd dsjdks dskjdks djskd skdnks csk cks ks dks kds kd kd kds k kd k k k k k k k k k k k k k 
+      // There djfkljf sjfksf sjfks sjfks sjfks jfskjfs sjdks sdjksd sjdksd dsjdks dskjdks djskd skdnks csk cks ks dks kds kd kd kds k kd k k k k k k k k k k k k k 
+      // There djfkljf sjfksf sjfks sjfks sjfks jfskjfs sjdks sdjksd sjdksd dsjdks dskjdks djskd skdnks csk cks ks dks kds kd kd kds k kd k k k k k k k k k k k k k 
+      // There djfkljf sjfksf sjfks sjfks sjfks jfskjfs sjdks sdjksd sjdksd dsjdks dskjdks djskd skdnks csk cks ks dks kds kd kd kds k kd k k k k k k k k k k k k k 
+      // Hey There djfkljf sjfksf sjfks sjfks sjfks jfskjfs sjdks sdjksd sjdksd dsjdks dskjdks djskd skdnks csk cks ks dks kds kd kd kds k kd k k k k k k k k k k k k k `, "Can you light my candle?"]);
+
+      animateWalking(5000, null, 'walk-start', 
+        350 * 1.5 + 100
+      );
+      // const video = document.querySelector("#video-curtain-opening");
+      // video.width = window.innerWidth;
+      // video.height = window.innerHeight
+      // video.play();
+      // store.dispatch(general.openTheaterCurtain(true));
     },
   },
   {
     type: TYPES.ANIMATE,
-    duration: 1500,
+    duration: 3000,
     animate: () => {
-      store.dispatch(general.turnOnLight(true));
+      animateUseCandle(2000);
     },
   },
   {
-    type: TYPES.ANIMATE,
-    duration: 500,
+    type: TYPES.INSTRUCTION,
+    text: () => (
+      <div>
+        Hey there
+        <br />
+        Can you light my candle?
+      </div>
+    ),
     animate: () => {
-      store.dispatch(canvas.showCanvas(true));
-      // animateWalking(5000)
+      // animateSpeakWithCandleWrapper(["Hey There djfkljf sjfksf sjfks sjfks sjfks jfskjfs sjdks sdjksd sjdksd dsjdks dskjdks djskd skdnks csk cks ks dks kds kd kd kds k kd k k k k k k k k k k k k k ", "Can you light my candle?"]);
+      animateSpeakWithCandleWrapper(["Hey There", "Can you light my candle?"]);
+    },
+    data: {
+      candleIndex: 0,
     },
   },
   {
@@ -65,13 +137,17 @@ const INSTRUCTIONS = [
       <div>
         Hey!
         <br />
-        I am Geroge the panda bear.
+        I am Bob the bear.
         <br />
         Happy Hanukka!
       </div>
     ),
     animate: () => {
-      animateSpeakWrapper(["Hey!", "I am Geroge the parrot", "Happy Hannuka!"]);
+      animateSpeakWithCandleWrapper([
+        "Hey!",
+        "I am Bob the bear",
+        "Happy Hannuka!",
+      ]);
     },
   },
   {
@@ -82,14 +158,14 @@ const INSTRUCTIONS = [
     error: () => "Oops! Wrong Candle!",
     text: () => "Light the first candle",
     data: {
-      candleIndex: 0,
+      candleIndex: 1,
     },
   },
   {
     type: TYPES.MESSAGE,
     text: () => "Amazing!",
     animate: () => {
-      animateSpeakWrapper(["Amazing!"]);
+      animateSpeakWithCandleWrapper(["Amazing!"]);
     },
     duration: 3000,
   },
@@ -101,7 +177,7 @@ const INSTRUCTIONS = [
     error: () => "Oops! Wrong Candle!",
     text: () => "Light the third candle",
     data: {
-      candleIndex: 2,
+      candleIndex: 3,
     },
   },
   {
@@ -112,7 +188,7 @@ const INSTRUCTIONS = [
       animateCandle("sixth", isError);
     },
     data: {
-      candleIndex: 5,
+      candleIndex: 6,
     },
   },
   {
@@ -120,7 +196,7 @@ const INSTRUCTIONS = [
     text: () => "Excellent!",
     duration: 3000,
     animate: (isError) => {
-      animateSpeakWrapper(["Excellent!"]);
+      animateSpeakWithCandleWrapper(["Excellent!"]);
     },
   },
   {
@@ -131,7 +207,7 @@ const INSTRUCTIONS = [
       animateCandle("ninth", isError);
     },
     data: {
-      candleIndex: 8,
+      candleIndex: 9,
     },
   },
   {
@@ -142,7 +218,7 @@ const INSTRUCTIONS = [
       animateCandle("forth", isError);
     },
     data: {
-      candleIndex: 3,
+      candleIndex: 4,
     },
   },
   {
@@ -153,14 +229,14 @@ const INSTRUCTIONS = [
       animateCandle("second", isError);
     },
     data: {
-      candleIndex: 1,
+      candleIndex: 2,
     },
   },
   {
     type: TYPES.MESSAGE,
     text: () => "You are on fire!",
     animate: () => {
-      animateSpeakWrapper(["You are on fire!"]);
+      animateSpeakWithCandleWrapper(["You are on fire!"]);
     },
     duration: 3000,
   },
@@ -172,7 +248,7 @@ const INSTRUCTIONS = [
       animateCandle("seventh", isError);
     },
     data: {
-      candleIndex: 6,
+      candleIndex: 7,
     },
   },
   {
@@ -183,7 +259,7 @@ const INSTRUCTIONS = [
       animateCandle("eighth", isError);
     },
     data: {
-      candleIndex: 7,
+      candleIndex: 8,
     },
   },
   {
@@ -194,7 +270,7 @@ const INSTRUCTIONS = [
       animateCandle("fith", isError);
     },
     data: {
-      candleIndex: 4,
+      candleIndex: 5,
     },
   },
   {

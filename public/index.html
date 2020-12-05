@@ -15,6 +15,98 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      @font-face {
+        font-family: "BadasNeue";
+        font-style: normal;
+        font-weight: normal;
+        src: url("%PUBLIC_URL%/fonts/BebasNeue/Regular.ttf")
+            format("truetype"),
+          url("%PUBLIC_URL%/fonts/BebasNeue/Regular.otf")
+            format("opentype");
+      }
+      @font-face {
+        font-family: "BadasNeue";
+        font-style: normal;
+        font-weight: 100;
+        src: url("%PUBLIC_URL%/fonts/BebasNeue/Thin.ttf")
+            format("truetype"),
+          url("%PUBLIC_URL%/fonts/BebasNeue/Thin.otf")
+            format("opentype");
+      }
+
+      @font-face {
+        font-family: "BadasNeue";
+        font-style: normal;
+        font-weight: 200;
+        src: url("%PUBLIC_URL%/fonts/BebasNeue/Light.ttf")
+            format("truetype"),
+          url("%PUBLIC_URL%/fonts/BebasNeue/Light.otf")
+            format("opentype");
+      }
+
+      @font-face {
+        font-family: "BadasNeue";
+        font-style: normal;
+        font-weight: 700;
+        src: url("%PUBLIC_URL%/fonts/BebasNeue/Book.ttf")
+            format("truetype"),
+          url("%PUBLIC_URL%/fonts/BebasNeue/Book.otf")
+            format("opentype");
+      }
+
+      @font-face {
+        font-family: "BadasNeue";
+        font-style: normal;
+        font-weight: bold;
+        src: url("%PUBLIC_URL%/fonts/BebasNeue/Bold.ttf")
+            format("truetype"),
+          url("%PUBLIC_URL%/fonts/BebasNeue/Bold.otf")
+            format("opentype");
+      }
+
+      @font-face {
+        font-family: "Casper";
+        font-style: normal;
+        font-weight: normal;
+        src: url("%PUBLIC_URL%/fonts/Casper.ttf") format("truetype");
+      }
+
+      @font-face {
+        font-family: "SinCity";
+        font-style: normal;
+        font-weight: normal;
+        src: url("%PUBLIC_URL%/fonts/SinCity.ttf") format("truetype");
+      }
+
+      @font-face {
+        font-family: "TwilightNewmoon";
+        font-style: normal;
+        font-weight: normal;
+        src: url("%PUBLIC_URL%/fonts/TwilightNewmoon.ttf") format("truetype");
+      }
+
+      @font-face {
+        font-family: "ghostbuster";
+        font-style: normal;
+        font-weight: normal;
+        src: url("%PUBLIC_URL%/fonts/ghostbuster.ttf") format("truetype");
+      }
+
+      @font-face {
+        font-family: "TrashCinemaBB";
+        font-style: normal;
+        font-weight: normal;
+        src: url("%PUBLIC_URL%/fonts/TrashCinemaBB.ttf") format("truetype");
+      }
+
+      </style>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -28,6 +120,13 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <!-- <video id="video-curtain-opening" width="320" height="240">
+      <source src="%PUBLIC_URL%/videos/curtain_opening.mp4" type="video/mp4">
+    </video> -->
+    <!-- <audio id="audio-cinematic-intro">
+      <source src="%PUBLIC_URL%/sounds/cinematic-transition-intro-theme.mp3" type="audio/mpeg" />
+    </audio>
     <audio id="audio-match-strike">
       <source src="%PUBLIC_URL%/sounds/match-strike-sound-effect.mp3" type="audio/mpeg" />
     </audio>
@@ -39,7 +138,7 @@
     </audio>
     <audio class="audio-wrong">
       <source src="%PUBLIC_URL%/sounds/wah-wah-wah-sound-effect.mp3" type="audio/mpeg" />
-    </audio>
+    </audio> -->
     <div id="root"></div>
     <!--
       This HTML file is a template.

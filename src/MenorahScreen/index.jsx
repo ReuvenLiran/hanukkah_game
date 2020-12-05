@@ -1,31 +1,38 @@
 import "./style.scss";
+import "./style.css";
 import { useEffect, useState, useRef } from "react";
+import classNames from "classnames";
 import { connect } from "react-redux";
 import SpeechBubble from "../SpeechBubble";
-import { showInstruction } from "../GameManager";
+// import { showInstruction } from "../GameManager";
 import Character from "./Character";
 import Canvas from "./Canvas";
 import { canvas, bubble } from "../reducers";
+import Moon from './Moon/Moon';
+import CreditsStart from "../Credits/CreditsStart";
 
 // setTimeout(function () {
-showInstruction();
+// showInstruction();
 // }, 2000);
 
 function App(props) {
   const {
     isCanvasShown,
+    isShowStarted,
     globalRatio,
+    wasFocusDone,
     resizeCanvas,
     resizeSpeechBubble,
     isLightOn,
   } = props;
 
-  const [characterRef, setCharacterRef] = useState(null);
+  const [isRendered, setIsRendered] = useState(null);
 
   useEffect(() => {
     setTimeout(() => {
       resizeCanvas();
       resizeSpeechBubble();
+      setIsRendered(true);
     }, 100);
     window.addEventListener("resize", () => {
       resizeCanvas();
@@ -35,7 +42,13 @@ function App(props) {
   }, []);
 
   return (
-    <div>
+    <div className={classNames("menorah-screen", "focus-moon")}
+      style={{
+        opacity: isRendered ? 1 : 0,
+      }}
+    >
+      {!wasFocusDone && <CreditsStart />}
+      <Moon globalRatio={globalRatio} />
       <Canvas />
       <Character />
       <SpeechBubble />
@@ -45,8 +58,10 @@ function App(props) {
 
 function mapStateToProps(state) {
   return {
+    wasFocusDone: state.general.wasFocusDone,
     isLightOn: state.general.isLightOn,
     isCanvasShown: state.canvas.isShown,
+    isShowStarted: state.general.isShowStarted,
     globalRatio: state.canvas.globalRatio,
   };
 }

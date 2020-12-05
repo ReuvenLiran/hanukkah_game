@@ -1,5 +1,34 @@
+// @font-face {
+//   font-family: steelTongs;
+//   src: url('../public/SteelTongs.ttf');
+// }
+
 body {
-    padding: 0;
-    margin: 0;
-    overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  background-color: black;
+  overflow: hidden;
+}
+
+.game {
+  // transform: scale(0.3);
+  transition: transform 10s linear;
+
+  // &.start-show {
+  //   transform: scale(1);
+  // }
+}
+
+#video-curtain-opening {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 7;
+  width: 100vw;
+  height: 100vh;
+}
+
+.preload-assests {
+    display: none;
 }

@@ -61,6 +61,20 @@ export default function () {
           Pixabay
         </a>
       </div>
+
+
+      Moon, Full Moon, Sky, Nightsky, Lunar, Moonlight, View×
+Say thanks to the image author
+
+
+Crediting isn’t required, but linking back is greatly appreciated and allows image authors to gain exposure. You can use the following text:
+
+Image by Robert Karkowski from Pixabay 
+
+Create a free design
+with this image
+ 
+      {/* https://pixabay.com/photos/milky-way-starry-sky-night-sky-star-2750627/ */}
     </div>
   );
 }

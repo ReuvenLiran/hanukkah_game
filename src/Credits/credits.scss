@@ -1,0 +1,97 @@
+@keyframes show-credits-for-start {
+    0% {
+        transform: translate(-50%, -2vmin);
+        opacity: 0;
+    }
+    15% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+    85% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, 2vmin);
+        // transform: translateY();
+        opacity: 0;
+    }
+}
+
+@keyframes show-main-header {
+    0% {
+        transform: translate(-50%, -25px);
+        opacity: 0;
+    }
+    1.5% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+    98.5% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, 25px);
+        opacity: 0;
+    }
+}
+
+
+.main-header {
+    text-shadow: 0px 0px 5px rgba(0,0,0,1);
+    position: absolute;
+    z-index: 11;
+    font-family: TrashCinemaBB;
+    color: #ffb7b7;
+    transform: translate(-50%);
+    animation: show-main-header 40s ease-in 1s both;
+
+    display: flex;
+    justify-content: center;
+    .text {
+        font-size: 8vmin;
+    }
+    .year {
+        margin-top: 1vmin;
+        margin-left: 1.5vmin;
+        font-size: 1.5vmin;
+    }
+}
+
+.credits-start {
+    .credit {
+        position: absolute;
+        color: white;
+        z-index: 11;
+        font-family: BadasNeue;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .credit-header {
+            margin: 0;
+            font-weight: 300;
+            font-size: 1.2em;
+        }
+        .credit-names {
+            margin: 0;
+            font-weight: 400;
+            font-size: 1.2em;
+        }
+
+        &.production {
+            animation: show-credits-for-start 6s ease-in 3s both;
+        }
+        &.sounds {
+            animation: show-credits-for-start 6s ease-in 9s both;
+        }
+        &.images {
+            animation: show-credits-for-start 6s ease-in 15s both
+        }
+        &.fonts {
+            animation: show-credits-for-start 6s ease-in 21s both
+        }
+    }
+}

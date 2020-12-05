@@ -50,9 +50,6 @@ export default function Canvas(props) {
 
   return (
     <canvas
-        style={{
-          zIndex: 3,
-        }}
         onClick={onClickDebounce}
         onMouseMove={moveCandle}
         ref={canvasRef}
